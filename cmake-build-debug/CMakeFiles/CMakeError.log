@@ -1,0 +1,103 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-bw3Gf0
+
+Run Build Command(s):/home/alexb/Documents/clion-2023.1.2/bin/ninja/linux/x64/ninja cmTC_46909 && [1/2] Building C object CMakeFiles/cmTC_46909.dir/src.c.o
+[2/2] Linking C executable cmTC_46909
+FAILED: cmTC_46909 
+: && /usr/bin/cc  -Wl,--export-dynamic -rdynamic CMakeFiles/cmTC_46909.dir/src.c.o -o cmTC_46909   && :
+/usr/bin/ld: CMakeFiles/cmTC_46909.dir/src.c.o: in function `main':
+src.c:(.text+0x46): undefined reference to `pthread_create'
+/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
+/usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
+/usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DPXJBW
+
+Run Build Command(s):/home/alexb/Documents/clion-2023.1.2/bin/ninja/linux/x64/ninja cmTC_c7933 && [1/2] Building C object CMakeFiles/cmTC_c7933.dir/CheckFunctionExists.c.o
+[2/2] Linking C executable cmTC_c7933
+FAILED: cmTC_c7933 
+: && /usr/bin/cc -DCHECK_FUNCTION_EXISTS=pthread_create -Wl,--export-dynamic -rdynamic CMakeFiles/cmTC_c7933.dir/CheckFunctionExists.c.o -o cmTC_c7933  -lpthreads && :
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX20 failed with the following output:
+Change Dir: /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IalPh0
+
+Run Build Command(s):/home/alexb/Documents/clion-2023.1.2/bin/ninja/linux/x64/ninja cmTC_13326 && [1/2] Building CXX object CMakeFiles/cmTC_13326.dir/src.cxx.o
+FAILED: CMakeFiles/cmTC_13326.dir/src.cxx.o 
+/usr/bin/c++ -DCOMPILER_SUPPORTS_CXX20 -DcmTC_13326_EXPORTS  -fdiagnostics-color=always   -std=c++20 -o CMakeFiles/cmTC_13326.dir/src.cxx.o -c /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IalPh0/src.cxx
+c++: error: unrecognized command line option '-std=c++20'; did you mean '-std=c++2a'?
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+int main() { return 0; }
+
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX23 failed with the following output:
+Change Dir: /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-cTuvZY
+
+Run Build Command(s):/home/alexb/Documents/clion-2023.1.2/bin/ninja/linux/x64/ninja cmTC_8bf49 && [1/2] Building CXX object CMakeFiles/cmTC_8bf49.dir/src.cxx.o
+FAILED: CMakeFiles/cmTC_8bf49.dir/src.cxx.o 
+/usr/bin/c++ -DCOMPILER_SUPPORTS_CXX23 -DcmTC_8bf49_EXPORTS  -fdiagnostics-color=always   -std=c++23 -o CMakeFiles/cmTC_8bf49.dir/src.cxx.o -c /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-cTuvZY/src.cxx
+c++: error: unrecognized command line option '-std=c++23'; did you mean '-std=c++03'?
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+int main() { return 0; }
+
+Performing C++ SOURCE FILE Test FLAG_-Werror=self-assign-field failed with the following output:
+Change Dir: /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-og5P5X
+
+Run Build Command(s):/home/alexb/Documents/clion-2023.1.2/bin/ninja/linux/x64/ninja cmTC_a24e0 && [1/2] Building CXX object CMakeFiles/cmTC_a24e0.dir/src.cxx.o
+FAILED: CMakeFiles/cmTC_a24e0.dir/src.cxx.o 
+/usr/bin/c++ -DcmTC_a24e0_EXPORTS  -fdiagnostics-color=always   -DFLAG_-Werror=self-assign-field -Werror=self-assign-field -o CMakeFiles/cmTC_a24e0.dir/src.cxx.o -c /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-og5P5X/src.cxx
+cc1plus: error: '-Werror=self-assign-field': no option -Wself-assign-field
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+int main() { return 0; }
+
+Performing C++ SOURCE FILE Test FLAG_-Werror=unused-lambda-capture failed with the following output:
+Change Dir: /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-sgWdSZ
+
+Run Build Command(s):/home/alexb/Documents/clion-2023.1.2/bin/ninja/linux/x64/ninja cmTC_9182b && [1/2] Building CXX object CMakeFiles/cmTC_9182b.dir/src.cxx.o
+FAILED: CMakeFiles/cmTC_9182b.dir/src.cxx.o 
+/usr/bin/c++ -DcmTC_9182b_EXPORTS  -fdiagnostics-color=always   -DFLAG_-Werror=unused-lambda-capture -Werror=unused-lambda-capture -o CMakeFiles/cmTC_9182b.dir/src.cxx.o -c /home/alexb/Documents/RGB-Decoding-Test/rgb-decoding/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-sgWdSZ/src.cxx
+cc1plus: error: '-Werror=unused-lambda-capture': no option -Wunused-lambda-capture
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+int main() { return 0; }
+
