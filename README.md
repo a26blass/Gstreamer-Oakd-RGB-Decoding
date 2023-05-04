@@ -1,6 +1,6 @@
-# RGB H265 Decoding for OAKD
+# RGB H264 Decoding for OAKD
 
-Demo on decoding H265 RGB data from OAK-D
+Demo on decoding H264 RGB data from OAK-D
 
 ## Depthai library dependencies
 - cmake >= 3.4

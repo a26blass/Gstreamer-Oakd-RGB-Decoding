@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
     int queue_size = 30;
     auto q = device.getOutputQueue("h265", queue_size, true);
 
-    cout << "Press Ctrl+C to exit..." << endl;
+    cout << "Press Ctrl+C to exit" << endl;
 
     /* Initialize GStreamer */
     gst_init(NULL, NULL);
@@ -294,7 +294,7 @@ int main(int argc, char *argv[]) {
 
     /* Set the pipeline to the playing state */
     if(verbose) {
-        fprintf(stderr, "Setting GStreamer pipeline to PLAY..\n");
+        fprintf(stderr, "Setting GStreamer pipeline to PLAY...\n");
     }
     GstStateChangeReturn ret;
     ret = gst_element_set_state(pipeline, GST_STATE_PLAYING);
