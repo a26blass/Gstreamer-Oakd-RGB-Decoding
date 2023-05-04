@@ -119,7 +119,7 @@ static gboolean decode(gpointer data) {
         return TRUE;
     }
 
-    /* Copy the contents of the packet to a gchar * */
+    /* Copy the contents of the packet to a gchar* */
     auto packet = *packet_ptr;
     auto p_info = packet.getData();
     const auto& d = packet.getData().data();
@@ -134,7 +134,7 @@ static gboolean decode(gpointer data) {
         fprintf(stderr, " | Packet size: %zu bytes", p_info.size());
     }
 
-    // Construct a GstBuffer from the frame data
+    // Construct a wrapped GstBuffer from the frame data, set free notification
     GstBuffer *buffer = gst_buffer_new_wrapped_full(GST_MEMORY_FLAG_READONLY, packet_data, p_info.size(), 0, p_info.size(), NULL, &buffer_free_notify);
 
     // Push the buffer to the appsrc element
@@ -170,7 +170,7 @@ int main(int argc, char *argv[]) {
             if (i + 1 < argc) {
                 resolution = std::string(argv[i + 1]);
             } else {
-                std::cerr << "-r option requires a resolution argument." << std::endl;
+                std::cerr << "-r option requires a resolution argument; see README" << std::endl;
                 return 1;
             }
         }
@@ -226,12 +226,13 @@ int main(int argc, char *argv[]) {
         camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_1440X1080);
     }
     else {
-        if (verbose) fprintf(stderr, "Assuming default resolution: 4K\n");
-        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_4_K);
+        if (verbose) fprintf(stderr, "Assuming default resolution: 1080P\n");
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_1080_P);
     }
 
+    int fps = camRgb->getFps();
     camRgb->setBoardSocket(dai::CameraBoardSocket::RGB);
-    videoEnc->setDefaultProfilePreset(30, dai::VideoEncoderProperties::Profile::H264_MAIN);
+    videoEnc->setDefaultProfilePreset(fps, dai::VideoEncoderProperties::Profile::H264_MAIN);
 
     // Linking
     camRgb->video.link(videoEnc->input);
@@ -245,7 +246,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Output queue will be used to get the encoded data from the output defined above
-    auto q = device.getOutputQueue("h265", 30, true);
+    int queue_size = 30;
+    auto q = device.getOutputQueue("h265", queue_size, true);
 
     cout << "Press Ctrl+C to exit..." << endl;
 
@@ -281,7 +283,7 @@ int main(int argc, char *argv[]) {
     frame->verbose = verbose;
 
     /* Add callback function to retrieve & decode OAK-D frames synchronously */
-    guint timeout_id = g_timeout_add(1000/30, decode, frame);
+    guint timeout_id = g_timeout_add(1000/fps, decode, frame);
 
     /* Set up bus for handling messages */
     bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
