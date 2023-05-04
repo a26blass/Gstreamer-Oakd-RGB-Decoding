@@ -1,4 +1,4 @@
-# CMake C++ example project for depthai-core library
+# RGB H265 Decoding for OAKD
 
 CMake example project which serves as a template on how to quickly get started with C++ and depthai library
 
@@ -13,7 +13,7 @@ git submodule update --init --recursive
 
 ## Prerequisites 
 
-### OpenCV - optional (for this example only) 
+### OpenCV - optional 
 
 OpenCV is required to run the out-of-box example.
 If OpenVINO is installed then no further action is required.
@@ -38,7 +38,10 @@ cmake --build . --parallel
 
 ## Running
 
-To run the example application 'myapp', navigate to build directory and run 'myapp' executable
+To run the application 'rgb_decoder', navigate to build directory and run 'rgb_decoder' executable
 ```
-./myapp
+./rgb decoder
+[Flags] 
+-v : verbose
+-d : debug
 ```
