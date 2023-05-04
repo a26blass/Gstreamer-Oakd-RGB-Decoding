@@ -87,7 +87,7 @@ static void gst_abort(GMainLoop *loop, GstElement *pipeline) {
 }
 
 /** 
- * This function frees GstBuffers
+ * This function frees GstBuffers once they are flagged as unused
  * 
  * @param data contains the buffer to be freed
 */
@@ -226,11 +226,12 @@ int main(int argc, char *argv[]) {
         camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_1440X1080);
     }
     else {
+        if (verbose) fprintf(stderr, "Assuming default resolution: 4K\n");
         camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_4_K);
     }
 
     camRgb->setBoardSocket(dai::CameraBoardSocket::RGB);
-    videoEnc->setDefaultProfilePreset(30, dai::VideoEncoderProperties::Profile::H265_MAIN);
+    videoEnc->setDefaultProfilePreset(30, dai::VideoEncoderProperties::Profile::H264_MAIN);
 
     // Linking
     camRgb->video.link(videoEnc->input);
@@ -253,7 +254,7 @@ int main(int argc, char *argv[]) {
     GMainLoop *loop = g_main_loop_new(NULL, FALSE);
     GstBus *bus;
 
-    const char *cmdline = "appsrc name=in ! h265parse name=parse ! avdec_h265 name=avdec ! queue name=q ! autovideosink name=out";
+    const char *cmdline = "appsrc name=in ! h264parse name=parse ! avdec_h264 name=avdec ! queue name=q ! autovideosink name=out";
     GError *error = NULL;
 
     // Parse the GStreamer pipeline string
