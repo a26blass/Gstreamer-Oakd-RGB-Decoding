@@ -1,6 +1,6 @@
 # RGB H265 Decoding for OAKD
 
-CMake example project which serves as a template on how to quickly get started with C++ and depthai library
+Demo on decoding H265 RGB data from OAK-D
 
 ## Depthai library dependencies
 - cmake >= 3.4
