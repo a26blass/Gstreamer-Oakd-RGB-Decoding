@@ -37,4 +37,28 @@ To run the application 'rgb_decoder', navigate to build directory and run 'rgb_d
 [Flags] 
 -v : verbose
 -d : debug
+-r [RESOLUTION] : specify resolution. Available resolutions: 
+THE_1080_P
+
+THE_1200_P
+
+THE_12_MP
+
+THE_13_MP
+
+THE_1440X1080
+
+THE_4000X3000
+
+THE_48_MP
+
+THE_4_K
+
+THE_5312X6000
+
+THE_5_MP
+
+THE_720_P
+
+THE_800_P
 ```

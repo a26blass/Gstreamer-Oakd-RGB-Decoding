@@ -1,3 +1,4 @@
+#include <string>
 #include <gst/gst.h>
 #include <gst/app/gstappsrc.h>
 #include <glib.h>
@@ -160,10 +161,18 @@ static gboolean decode(gpointer data) {
 int main(int argc, char *argv[]) {
     /* Set verbose */
     bool verbose = false;
-
+    string resolution;
     for (int i = 1; i < argc; i++) {
         if (std::string(argv[i]) == "-d" || std::string(argv[i]) == "-v") {
             verbose = true;
+        }
+        if (std::string(argv[i]) == "-r") {
+            if (i + 1 < argc) {
+                resolution = std::string(argv[i + 1]);
+            } else {
+                std::cerr << "-r option requires a resolution argument." << std::endl;
+                return 1;
+            }
         }
     }
 
@@ -179,8 +188,48 @@ int main(int argc, char *argv[]) {
 
     xout->setStreamName("h265");
 
+    // Set resolution
+    if (resolution == "THE_1080_P") {
+    camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_1080_P);
+    }
+    else if (resolution == "THE_1200_P") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_1200_P);
+    }
+    else if (resolution == "THE_4_K") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_4_K);
+    }
+    else if (resolution == "THE_5_MP") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_5_MP);
+    }
+    else if (resolution == "THE_12_MP") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_12_MP);
+    }
+    else if (resolution == "THE_4000X3000") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_4000X3000);
+    }
+    else if (resolution == "THE_13_MP") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_13_MP);
+    }
+    else if (resolution == "THE_5312X6000") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_5312X6000);
+    }
+    else if (resolution == "THE_48_MP") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_48_MP);
+    }
+    else if (resolution == "THE_720_P") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_720_P);
+    }
+    else if (resolution == "THE_800_P") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_800_P);
+    }
+    else if (resolution == "THE_1440X1080") {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_1440X1080);
+    }
+    else {
+        camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_4_K);
+    }
+
     camRgb->setBoardSocket(dai::CameraBoardSocket::RGB);
-    camRgb->setResolution(dai::ColorCameraProperties::SensorResolution::THE_4_K);
     videoEnc->setDefaultProfilePreset(30, dai::VideoEncoderProperties::Profile::H265_MAIN);
 
     // Linking
